@@ -1,25 +1,25 @@
 package com.bridgelabz;
+import java.util.ArrayList;
 
 public class EmployeeWage implements ComputeWage{
     public static final int isPartTime=0;
     public static final int isFullTime=1;
-    private int numOfCompany;
-    private CompanyEmpWage empWageArray[];
+    private ArrayList<CompanyEmpWage> empList;
     public EmployeeWage() {
-        empWageArray=new CompanyEmpWage[5];
+        empList=new ArrayList<>();
     }
     public void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maximumHoursPerMonth) {
-        empWageArray[numOfCompany]=new CompanyEmpWage(company,empRatePerHour,numOfWorkingDays,maximumHoursPerMonth);
-        numOfCompany++;
+        CompanyEmpWage empWage=new CompanyEmpWage(company,empRatePerHour,numOfWorkingDays,maximumHoursPerMonth);
+        empList.add(empWage);
     }
     public void computeEmpWage() {
-        for(int i=0;i<numOfCompany;i++) {
-            empWageArray[i].setTotalEmpWage(this.computeEmpWage(empWageArray[i]));
-            System.out.println(empWageArray[i]);
+        for(int i=0;i<empList.size();i++) {
+            empList.get(i).setTotalEmpWage(this.computeEmpWage(empList.get(i)));
+            System.out.println(empList.get(i));
         }
 
     }
-    private int computeEmpWage(CompanyEmpWage companyEmpWage) {
+    private  int computeEmpWage(CompanyEmpWage companyEmpWage) {
         int empHours=0, totalEmpHours=0, totalWorkingDays=0;
         while(totalEmpHours<=companyEmpWage.maximumHoursPerMonth && totalWorkingDays<companyEmpWage.numOfWorkingDays){
             int check=(int)(Math.floor(Math.random()*10)%2);
@@ -36,7 +36,8 @@ public class EmployeeWage implements ComputeWage{
             totalEmpHours+=empHours;
             totalWorkingDays+=1;
         }
-        return totalEmpHours * companyEmpWage.empRatePerHour;
+        return (totalEmpHours*companyEmpWage.empRatePerHour);
+
     }
     public static void main(String args[]) {
         EmployeeWage employeeWage=new EmployeeWage();
@@ -44,4 +45,3 @@ public class EmployeeWage implements ComputeWage{
         employeeWage.addCompanyEmpWage("Reliance", 25, 21, 70);
         employeeWage.computeEmpWage();
     }
-}
