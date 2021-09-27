@@ -2,27 +2,31 @@ package com.bridgelabz;
 
 public class EmployeeWage {
 
-	public static void main(String[] args) {
-        //Constants
-        int IS_PART_TIME = 1;
-        int IS_FULL_TIME = 2;
-        int  ENP_RATE_PER_HOUR = 20;
+	public static final int IS_PART_TIME = 1;
+    public static final int IS_FULL_TIME = 2;
+    public static final int EMP_RATE_PER_HOUR = 20;
+
+    public static void main(String[] args) {
         // Variables
-        int emHrs = 0;
+        int empHrs = 0;
         int empWage = 0;
         System.out.println("Welcome to Employee Wage");
         // computation
-        double empCheck = Math.floor(Math.random()* 10) % 3;
+        int empCheck = (int) Math.floor(Math.random()* 10) % 3;
         // Using random class to Get random number
-        if (empCheck == IS_PART_TIME){
-            emHrs = 4;
-        }else if (empCheck == IS_FULL_TIME){
-            emHrs = 8;
-        }else {
-            emHrs = 0;
+        switch (empCheck) {
+            case IS_PART_TIME:
+                empHrs = 4;
+                break;
+            case IS_FULL_TIME:
+                empHrs = 8;
+                break;
+            default:
+                empHrs = 0;
         }
-        empWage = emHrs * ENP_RATE_PER_HOUR;
+        empWage = empHrs * EMP_RATE_PER_HOUR;
         System.out.println("Employee Wage " + empWage);
     }
+
 }
 
